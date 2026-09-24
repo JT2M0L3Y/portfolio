@@ -5,20 +5,29 @@ on:
     branches: [main]
 
 jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
   deploy:
+    needs: build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: terraform
-    env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-      TF_VAR_account_id: ${{ secrets.CF_ACCOUNT_ID }}
-      TF_VAR_zone_id: ${{ secrets.CF_ZONE_ID }}
-      TF_VAR_custom_domain: ${{ vars.CUSTOM_DOMAIN }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: ./.github/workflows/build.yml
+      - uses: actions/download-artifact@v7
+        with:
+          name: portfolio-${{ github.sha }}
+          path: dist
       - uses: hashicorp/setup-terraform@v4
-      - run: terraform init
-      - run: terraform plan -input=false
-      - run: terraform apply -auto-approve
+      - run: terraform init -input=false --reconfigure
+        working-directory: ./terraform
+      - run: terraform validate
+        working-directory: ./terraform
+      - run: terraform plan -out=tfplan -input=false
+        working-directory: ./terraform
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          TF_VAR_account_id: ${{ secrets.CF_ACCOUNT_ID }}
+          TF_VAR_zone_id: ${{ secrets.CF_ZONE_ID }}
+          TF_VAR_custom_domain: ${{ vars.CUSTOM_DOMAIN }}
+      - if: github.ref == 'refs/heads/main'
+        run: terraform apply -input=false -auto-approve tfplan
+        working-directory: ./terraform
