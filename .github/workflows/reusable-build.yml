@@ -1,0 +1,29 @@
+name: Build site
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_call:
+    outputs:
+      artifact_name:
+        description: "name of built artifact"
+        value: "${{ jobs.build.outputs.artifact_name }}"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact_name: ${{ steps.set.outputs.artifact_name }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v7
+        if: ${{ github.event_name == 'workflow_call' }}
+        with:
+          name: dist-${{ github.sha }}
+          path: dist
+      - id: set
+        if: ${{ github.event_name == 'workflow_call' }}
+        run: echo "artifact_name=dist-${{ github.sha }}" >> $GITHUB_OUTPUT
