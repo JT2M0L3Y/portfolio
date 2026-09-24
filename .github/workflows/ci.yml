@@ -2,6 +2,7 @@ name: Build and Deploy
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened]
   push:
     branches: [main]
 
@@ -14,12 +15,13 @@ jobs:
       - run: npm ci
       - run: npm run build
       - uses: actions/upload-artifact@v7
+        if: ${{ github.event_name == 'push' && github.ref == 'main' }}
         with:
           name: portfolio
           path: dist
 
   deploy:
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref == 'main'
     needs: build
     runs-on: ubuntu-latest
     steps:
