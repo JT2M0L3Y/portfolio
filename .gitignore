@@ -1,6 +1,11 @@
 # build output
 dist*/
 
+# terraform
+**/.terraform/*
+**/terraform.tfstate*
+**/tfplan
+
 # generated types
 .astro/
 
