@@ -1,5 +1,5 @@
 provider "cloudflare" {
-  # uses CF_API_TOKEN environment variable
+  api_token = var.cloudflare_api_token
 }
 
 locals {
@@ -23,7 +23,7 @@ resource "cloudflare_workers_script" "portfolio" {
   }
 }
 
-resource "cloudflare_workers_custom_domain" "portfolio" {
+resource "cloudflare_workers_custom_domain" "portfolio_domain" {
   count = var.custom_domain != null && var.custom_domain != "" ? 1 : 0
 
   account_id = var.account_id

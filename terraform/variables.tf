@@ -1,3 +1,8 @@
+variable "cloudflare_api_token" {
+  type        = string
+  description = "Cloudflare API Token"
+}
+
 variable "account_id" {
   type        = string
   description = "Cloudflare Account ID"
@@ -15,8 +20,7 @@ variable "worker_name" {
 
 variable "custom_domain" {
   type        = string
-  default     = null
-  description = "Optional custom domain (e.g. example.com)"
+  description = "Custom domain (e.g. example.com)"
 }
 
 variable "compatibility_date" {
