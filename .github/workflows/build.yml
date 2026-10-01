@@ -4,17 +4,25 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
   workflow_call:
+    outputs:
+      artifact-name:
+        description: "The name of the uploaded artifact"
+        value: ${{ jobs.run.outputs.artifact-name }}
 
 jobs:
-  build:
+  run:
     runs-on: ubuntu-latest
+    outputs:
+      artifact-name: ${{ steps.set-output.outputs.name }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
       - run: npm ci
       - run: npm run build
       - uses: actions/upload-artifact@v7
-        if: ${{ github.event_name == 'workflow_call' }}
+        # if: ${{ github.event_name == 'workflow_call' }}
         with:
           name: portfolio-${{ github.sha }}
           path: dist
+      - id: set-output
+        run: echo "name=portfolio-${{ github.sha }}" >> "$GITHUB_OUTPUT"
