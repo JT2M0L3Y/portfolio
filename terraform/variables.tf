@@ -8,9 +8,9 @@ variable "account_id" {
   description = "Cloudflare Account ID"
 }
 
-variable "zone_id" {
+variable "cf_zone_id" {
   type        = string
-  description = "Cloudflare Zone ID"
+  description = "passed via TF_VAR_cf_zone_id from GitHub secrets"
 }
 
 variable "worker_name" {
@@ -20,7 +20,7 @@ variable "worker_name" {
 
 variable "custom_domain" {
   type        = string
-  description = "Custom domain (e.g. example.com)"
+  description = "passed via TF_VAR_custom_domain from GitHub variables"
 }
 
 variable "compatibility_date" {

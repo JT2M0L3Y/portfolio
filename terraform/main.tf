@@ -27,7 +27,7 @@ resource "cloudflare_workers_custom_domain" "portfolio_domain" {
   count = var.custom_domain != null && var.custom_domain != "" ? 1 : 0
 
   account_id = var.account_id
-  zone_id    = var.zone_id
+  zone_id    = var.cf_zone_id
   hostname   = var.custom_domain
   service    = cloudflare_workers_script.portfolio.script_name
 }
