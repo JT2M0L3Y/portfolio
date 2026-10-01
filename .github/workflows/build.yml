@@ -22,6 +22,6 @@ jobs:
       - uses: actions/upload-artifact@v7
         with:
           name: portfolio-${{ github.sha }}
-          path: dist
+          path: dist*
       - id: set-output
         run: echo "name=portfolio-${{ github.sha }}" >> "$GITHUB_OUTPUT"
