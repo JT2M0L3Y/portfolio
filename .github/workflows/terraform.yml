@@ -15,7 +15,7 @@ on:
       CF_API_TOKEN:
         required: true
       CF_ACCOUNT_ID:
-        required: true  
+        required: true
       CF_ZONE_ID:
         required: true
 
@@ -35,6 +35,10 @@ jobs:
           path: dist
       - uses: hashicorp/setup-terraform@v4
       - run: terraform init -input=false --reconfigure
+        working-directory: ./terraform
       - run: terraform validate
+        working-directory: ./terraform
       - run: terraform plan -out=tfplan -input=false
+        working-directory: ./terraform
       - run: terraform apply -input=false -auto-approve tfplan
+        working-directory: ./terraform
