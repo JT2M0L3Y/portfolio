@@ -2,7 +2,8 @@
 dist*/
 
 # terraform
-**/terraform/*
+**/terraform*
+**/.terraform*
 **/tfplan
 
 # generated types

@@ -5,6 +5,8 @@ terraform {
       version = "~> 5"
     }
   }
+}
 
-  required_version = ">= 1.15"
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }
