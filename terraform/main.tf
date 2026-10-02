@@ -6,6 +6,10 @@ resource "cloudflare_workers_script" "portfolio" {
 
   assets = {
     directory = "${path.module}/../dist"
+    config = {
+      not_found_handling = "404-page"
+      html_handling      = "auto-trailing-slash"
+    }
   }
 }
 

@@ -7,7 +7,6 @@ on:
         required: true
         type: string
         description: "The name of the downloaded artifact"
-      
 
 jobs:
   apply:
@@ -25,10 +24,10 @@ jobs:
           path: dist
       - uses: hashicorp/setup-terraform@v4
       - run: terraform init -input=false --reconfigure
-        working-directory: ./terraform
+        working-directory: terraform
       - run: terraform validate
-        working-directory: ./terraform
+        working-directory: terraform
       - run: terraform plan -out=tfplan -input=false
-        working-directory: ./terraform
+        working-directory: terraform
       - run: terraform apply -input=false -auto-approve tfplan
-        working-directory: ./terraform
+        working-directory: terraform
