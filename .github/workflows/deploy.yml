@@ -14,3 +14,8 @@ jobs:
     uses: ./.github/workflows/terraform.yml
     with:
       artifact-name: ${{ needs.build.outputs.artifact-name }}
+      CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
+    secrets:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN}}
+      ACCOUNT_ID: ${{ secrets.ACCOUNT_ID }}
+      ZONE_ID: ${{ secrets.ZONE_ID }}
