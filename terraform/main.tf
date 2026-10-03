@@ -4,8 +4,18 @@ resource "cloudflare_workers_script" "portfolio" {
 
   compatibility_date = formatdate("YYYY-MM-DD", timestamp())
 
+  content = <<EOT
+    export default {
+      async fetch(request, env, ctx) {
+        return await env.ASSETS.fetch(request)
+      }
+    }
+  EOT
+
   assets = {
-    directory = "${path.module}/../dist"
+    directory          = "${path.module}/../dist"
+    binding            = "ASSETS"
+    not_found_handling = "none"
   }
 }
 
