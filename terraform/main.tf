@@ -4,9 +4,10 @@ resource "cloudflare_workers_script" "portfolio" {
 
   compatibility_date = formatdate("YYYY-MM-DD", timestamp())
 
-  content = <<EOT
+  main_module = "worker.js"
+  content     = <<-EOT
     export default {
-      async fetch(request, env, ctx) {
+      async fetch(request, env) {
         return await env.ASSETS.fetch(request)
       }
     }
