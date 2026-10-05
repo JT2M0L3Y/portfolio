@@ -13,7 +13,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     env:
-      cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN}}
+      TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN}}
       TF_VAR_account_id: ${{ secrets.ACCOUNT_ID }}
       TF_VAR_zone_id: ${{ secrets.ZONE_ID }}
       TF_VAR_custom_domain: ${{ vars.CUSTOM_DOMAIN }}
