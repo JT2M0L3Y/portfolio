@@ -9,8 +9,6 @@
     "**/*"
   ],
   "exclude": [
-    "dist",
-    "dist-worker",
-    "node_modules",
+    "dist"
   ]
 }
