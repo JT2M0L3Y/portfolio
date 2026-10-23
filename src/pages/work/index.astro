@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import WorkItem from "../../components/WorkItem.svelte";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const work = (await getCollection("work", ({ data }) => !data.draft)).sort(
+	(a, b) => a.data.order - b.data.order,
+);
+---
+
+<SiteLayout title="Work">
+	<section class="animate">
+		<h1
+			class="mb-2 font-sans text-xl font-semibold text-stone-900 dark:text-stone-100"
+		>
+			Work Experience
+		</h1>
+		<p class="mb-6 font-serif text-stone-600 dark:text-stone-300">
+			A selection of roles and things I have worked on.
+		</p>
+		{
+			work.length ? (
+				<ul class="divide-y divide-stone-300/70 dark:divide-stone-700/70">
+					{work.map((item) => (
+						<WorkItem
+							company={item.data.company}
+							role={item.data.role}
+							startDate={item.data.startDate}
+							endDate={item.data.endDate}
+							description={item.body?.trim()}
+						/>
+					))}
+				</ul>
+			) : (
+				<p class="font-serif text-stone-500 dark:text-stone-400">
+					No work experience added yet.
+				</p>
+			)
+		}
+	</section>
+</SiteLayout>

@@ -1,0 +1,30 @@
+---
+import SkillGroup from "../components/SkillGroup.svelte";
+import { skillGroups } from "../data/site";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+	title="Skills"
+	description="Tools, technologies, and skills used in my work."
+>
+	<div class="space-y-10">
+		<header class="animate">
+			<h1
+				class="mb-3 font-sans text-xl font-semibold text-stone-900 dark:text-stone-100"
+			>
+				Skills
+			</h1>
+			<p class="font-serif text-stone-600 dark:text-stone-300">
+				A selection of tools and technologies I use. Update these groups in
+				<code>src/data/site.ts</code> to reflect your own experience.
+			</p>
+		</header>
+
+		{
+			skillGroups.map((group) => (
+				<SkillGroup category={group.category} skills={group.skills} />
+			))
+		}
+	</div>
+</SiteLayout>

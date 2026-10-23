@@ -1,11 +1,113 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import ContactSection from "../components/ContactSection.svelte";
+import EntryCard from "../components/EntryCard.svelte";
+import IntroSection from "../components/IntroSection.svelte";
+import SectionHeading from "../components/SectionHeading.svelte";
+import WorkItem from "../components/WorkItem.svelte";
+import { site, skillGroups } from "../data/site";
+import SiteLayout from "../layouts/SiteLayout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const [allProjects, allWork] = await Promise.all([
+	getCollection("projects", ({ data }) => !data.draft),
+	getCollection("work", ({ data }) => !data.draft),
+]);
+
+const projects = allProjects
+	.filter(({ data }) => data.featured)
+	.sort((a, b) => a.data.order - b.data.order)
+	.slice(0, 3);
+const work = allWork.sort((a, b) => a.data.order - b.data.order).slice(0, 2);
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<SiteLayout title="Home">
+	<div class="space-y-12">
+		<IntroSection
+			heading={site.intro.heading}
+			paragraphs={site.intro.paragraphs}
+		/>
+
+		<section class="animate">
+			<SectionHeading
+				title="About"
+				href="/about"
+				linkLabel="More about me"
+			/>
+			<p class="font-serif leading-7 text-stone-600 dark:text-stone-300">
+				{site.about.sections[0].paragraphs[0]}
+			</p>
+		</section>
+
+		<section class="animate">
+			<SectionHeading
+				title="Skills"
+				href="/skills"
+				linkLabel="See all skills"
+			/>
+			<div class="flex flex-wrap gap-2">
+				{skillGroups.flatMap((group) => group.skills).slice(0, 6).map((skill) => (
+					<span class="rounded-full border border-stone-300 px-3 py-1.5 text-sm text-stone-700 dark:border-stone-700 dark:text-stone-300">
+						{skill}
+					</span>
+				))}
+			</div>
+		</section>
+
+		<section class="animate">
+			<SectionHeading
+				title="Work Experience"
+				href="/work"
+				linkLabel="See all work"
+			/>
+			{
+				work.length ? (
+					<ul class="divide-y divide-stone-300/70 dark:divide-stone-700/70">
+						{work.map((item) => (
+							<WorkItem
+								company={item.data.company}
+								role={item.data.role}
+								startDate={item.data.startDate}
+								endDate={item.data.endDate}
+								description={item.body?.trim()}
+							/>
+						))}
+					</ul>
+				) : (
+					<p class="font-serif text-stone-500 dark:text-stone-400">
+						Add a published entry in <code>src/content/work/</code>.
+					</p>
+				)
+			}
+		</section>
+
+		<section class="animate">
+			<SectionHeading
+				title="Recent projects"
+				href="/projects"
+				linkLabel="See all projects"
+			/>
+			{
+				projects.length ? (
+					<ul class="space-y-3">
+						{projects.map((project) => (
+							<EntryCard
+								href={`/projects/${project.id}`}
+								title={project.data.title}
+								description={project.data.summary}
+							/>
+						))}
+					</ul>
+				) : (
+					<p class="font-serif text-stone-500 dark:text-stone-400">
+						Add a published project in <code>src/content/projects/</code>.
+					</p>
+				)
+			}
+		</section>
+
+		<ContactSection
+			description={site.contact.description}
+			links={site.contact.links}
+		/>
+	</div>
+</SiteLayout>

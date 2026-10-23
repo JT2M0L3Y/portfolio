@@ -6,26 +6,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
-
-  run:
-    needs: build
+  deploy:
     runs-on: ubuntu-latest
-    env:
-      TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN}}
-      TF_VAR_account_id: ${{ secrets.ACCOUNT_ID }}
-      TF_VAR_zone_id: ${{ secrets.ZONE_ID }}
-      TF_VAR_custom_domain: ${{ vars.CUSTOM_DOMAIN }}
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/download-artifact@v7
+      - uses: actions/setup-node@v7
         with:
-          path: dist
-      - uses: hashicorp/setup-terraform@v4
-      - run: terraform init -input=false --reconfigure
-        working-directory: terraform
-      - run: terraform plan -out=tfplan -input=false
-        working-directory: terraform
-      - run: terraform apply -input=false -auto-approve tfplan
-        working-directory: terraform
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.ACCOUNT_ID }}
+          command: deploy
