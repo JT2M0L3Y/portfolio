@@ -7,13 +7,26 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "check": "astro check",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "generate-types": "wrangler types"
   },
   "dependencies": {
-    "astro": "^7.3.3"
+    "@astrojs/cloudflare": "^14.4.2",
+    "@astrojs/svelte": "^9.1.1",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.2",
+    "svelte": "^5.57.2",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.149.0"
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12"
   }
 }

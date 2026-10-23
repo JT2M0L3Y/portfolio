@@ -1,0 +1,11 @@
+compatibility_date = "2026-10-19"
+compatibility_flags = ["global_fetch_strictly_public"]
+main = "@astrojs/cloudflare/entrypoints/server"
+name = "portfolio"
+
+[assets]
+binding = "ASSETS"
+directory = "./dist"
+
+[observability]
+enabled = true

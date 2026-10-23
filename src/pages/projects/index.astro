@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import EntryCard from "../../components/EntryCard.svelte";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+const projects = (
+	await getCollection("projects", ({ data }) => !data.draft)
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<SiteLayout title="Projects">
+	<section class="animate">
+		<h1
+			class="mb-2 font-sans text-xl font-semibold text-stone-900 dark:text-stone-100"
+		>
+			Projects
+		</h1>
+		<p class="mb-6 font-serif text-stone-600 dark:text-stone-300">
+			Selected projects and experiments.
+		</p>
+		{
+			projects.length ? (
+				<ul class="space-y-3">
+					{projects.map((project) => (
+						<EntryCard
+							href={`/projects/${project.id}`}
+							title={project.data.title}
+							description={project.data.summary}
+						/>
+					))}
+				</ul>
+			) : (
+				<p class="font-serif text-stone-500 dark:text-stone-400">
+					No projects added yet.
+				</p>
+			)
+		}
+	</section>
+</SiteLayout>

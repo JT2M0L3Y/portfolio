@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+	const projects = await getCollection("projects", ({ data }) => !data.draft);
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<SiteLayout title={project.data.title} description={project.data.summary}>
+	<article class="prose prose-stone max-w-none dark:prose-invert">
+		<a
+			class="not-prose text-sm text-stone-500 dark:text-stone-400"
+			href="/projects">← All projects</a
+		>
+		<h1>{project.data.title}</h1>
+		<p>{project.data.summary}</p>
+		<div class="not-prose mb-6 flex gap-4 text-sm">
+			{project.data.url && <a href={project.data.url}>Live project ↗</a>}
+			{
+				project.data.repository && (
+					<a href={project.data.repository}>Source code ↗</a>
+				)
+			}
+		</div>
+		<Content />
+	</article>
+</SiteLayout>

@@ -1,0 +1,44 @@
+---
+import SiteFooter from "../components/SiteFooter.svelte";
+import SiteHeader from "../components/SiteHeader.svelte";
+import { site } from "../data/site";
+import "../styles/global.css";
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
+		<meta name="color-scheme" content="light dark" />
+		<title>{title} | {site.name}</title>
+		<script is:inline>
+			const theme = localStorage.getItem("theme") || "system";
+			const dark =
+				theme === "dark" ||
+				(theme === "system" &&
+					matchMedia("(prefers-color-scheme: dark)").matches);
+			document.documentElement.classList.toggle("dark", dark);
+		</script>
+	</head>
+	<body>
+		<div
+			id="top"
+			class="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-6 sm:px-10"
+		>
+			<SiteHeader siteName={site.name} />
+			<main class="flex-1 pb-16 pt-28 sm:pb-24">
+				<slot />
+			</main>
+			<SiteFooter siteName={site.name} client:load />
+		</div>
+	</body>
+</html>
