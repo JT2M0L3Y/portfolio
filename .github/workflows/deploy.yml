@@ -20,4 +20,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.ACCOUNT_ID }}
-          command: deploy
+          command: deploy --latest --domain ${{ vars.CUSTOM_DOMAIN }}

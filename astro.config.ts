@@ -11,5 +11,5 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   integrations: [svelte()],
-  adapter: cloudflare()
+  adapter: cloudflare({ imageService: 'passthrough' })
 });
