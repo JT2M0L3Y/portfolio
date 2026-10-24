@@ -1,4 +1,3 @@
-compatibility_date = "2026-10-19"
 compatibility_flags = ["global_fetch_strictly_public"]
 main = "@astrojs/cloudflare/entrypoints/server"
 name = "portfolio"
@@ -8,4 +7,10 @@ binding = "ASSETS"
 directory = "./dist"
 
 [observability]
+enabled = true
+
+[observability.traces]
+enabled = true
+
+[observability.issues]
 enabled = true
