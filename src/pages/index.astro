@@ -16,7 +16,7 @@ const [allProjects, allWork] = await Promise.all([
 const projects = allProjects
 	.filter(({ data }) => data.featured)
 	.sort((a, b) => a.data.order - b.data.order)
-	.slice(0, 3);
+	.slice(0, 4);
 const work = allWork.sort((a, b) => a.data.order - b.data.order).slice(0, 2);
 ---
 

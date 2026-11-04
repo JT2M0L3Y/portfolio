@@ -1,44 +1,43 @@
 export const site = {
-	name: 'Portfolio',
-	description: 'A personal portfolio of work, skills, and ideas.',
+	name: 'Jonathan Smoley',
+	description:
+		'Platform and infrastructure engineer focused on reliability, automation, and distributed systems.',
 	intro: {
-		heading: "Hi, I'm Jonathan",
+		heading: 'I build reliable infrastructure and systems.',
 		paragraphs: [
-			'Add a short introduction about yourself, the work you do, and what you care about.',
+			'I focus on reliability, automation, and the platforms behind dependable software. At Expeditors, I supported a 5,000+ node production fleet, built deployment automation, and migrated 100+ databases from Solaris to Linux—cutting cutover downtime by 85%.',
+			'I am based in the Greater Seattle Area and open to Platform, Infrastructure, and Reliability Engineering opportunities.',
 		],
 	},
 	about: {
-		description: 'Learn more about my background, interests, and approach to work.',
+		description:
+			'Platform and infrastructure engineering grounded in production operations, automation, and systems work.',
 		sections: [
 			{
-				heading: 'A little about me',
+				heading: 'Reliability at scale',
 				paragraphs: [
-					'Write a longer introduction here: where you are coming from, the work you enjoy, and what motivates you.',
-					'You can include a few personal details that help visitors get to know the person behind the projects.',
+					'At Expeditors, I supported performance, availability, and SOX compliance across a 5,000+ node production fleet, with zero audit findings. I built Python and Bash tooling that saved about five engineering hours per deployment and wrote Ansible playbooks for provisioning, migrations, and TLS installation.',
+					'I also rolled out Prometheus and Grafana across 30+ environments, reducing mean time to detect and mean time to recover by 40%. Automated reconciliation across 190+ databases provided 100% auditability for a critical enterprise audit.',
 				],
 			},
 			{
-				heading: 'What I care about',
+				heading: 'Systems and software',
 				paragraphs: [
-					'Describe the problems, ideas, or communities that matter to you. Include what you are curious about right now.',
+					'My work spans infrastructure, operating systems, data pipelines, and developer tooling. At Itron, I built a TypeScript React Native diagnostic app that streamed utility telemetry over BLE and visualized RF signals across 80 frequency channels.',
+					'Outside production work, I build projects in Go, C++, and Rust, and explore infrastructure through a Proxmox home lab and cloud data projects.',
 				],
 			},
 			{
-				heading: 'How I work',
+				heading: 'Current focus',
 				paragraphs: [
-					'Share how you approach collaboration, learning, and building thoughtful software. Keep what feels true to you and replace the rest.',
-				],
-			},
-			{
-				heading: 'Education',
-				paragraphs: [
-					'Add relevant schools, programs, certifications, or other learning experiences here. Include dates or focus areas if they help tell your story.',
+					'Since August 2026, I have been focused on independent engineering projects and self-directed learning. This is independent work, not client consulting; current projects include my home lab, programming-language tools, and this portfolio.',
 				],
 			},
 		],
 	},
 	contact: {
-		description: 'Want to get in touch? Find me here:',
+		description:
+			'I am open to Platform, Infrastructure, and Reliability Engineering opportunities in Greater Seattle and beyond. Connect with me on GitHub or LinkedIn.',
 		links: [
 			{
 				label: 'GitHub',
@@ -56,15 +55,46 @@ export const site = {
 
 export const skillGroups = [
 	{
-		category: 'Languages & frameworks',
-		skills: ['TypeScript', 'Astro', 'Svelte'],
+		category: 'Professional — Platform & Reliability',
+		skills: [
+			'Linux',
+			'Solaris',
+			'Ansible',
+			'Python',
+			'Bash',
+			'Prometheus',
+			'Grafana',
+			'Git',
+			'GitLab CI',
+			'GitHub CI',
+			'CI/CD',
+			'TLS/SSL',
+		],
 	},
 	{
-		category: 'Styling & UI',
-		skills: ['HTML', 'CSS', 'Tailwind CSS'],
+		category: 'Professional — Languages & Data',
+		skills: ['TypeScript', 'SQL', 'Perl', 'DB2', 'PostgreSQL', 'MySQL'],
 	},
 	{
-		category: 'Tools & platform',
-		skills: ['Git', 'GitHub Actions', 'Cloudflare'],
+		category: 'Project-level — Systems & Infrastructure',
+		skills: [
+			'Go',
+			'Rust',
+			'C++',
+			'Docker',
+			'Terraform',
+			'Cloudflare Workers',
+			'GitHub Actions',
+			'GCP',
+			'Proxmox',
+			'Tailscale',
+			'Vault',
+			'Caddy',
+			'AdGuard',
+		],
+	},
+	{
+		category: 'Project-level — Application & Data',
+		skills: ['React Native', 'REST APIs', 'Ollama'],
 	},
 ];
